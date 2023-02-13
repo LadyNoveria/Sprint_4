@@ -37,7 +37,7 @@ public class OrderingTests {
         AboutRentForm objAboutRent = new AboutRentForm(driver);
         objAboutRent.waitForLoadHeaderForm();
         objAboutRent.fillingInDeliveryDate("10/10/2023");
-        objAboutRent.fillingRentalPeriod("трое суток");
+        objAboutRent.fillingRentalPeriod(3);
         objAboutRent.chooseBlackScooter();
         objAboutRent.fillingComment("Вы классный!");
         objAboutRent.clickOrderButton();
