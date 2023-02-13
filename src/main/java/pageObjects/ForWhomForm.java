@@ -14,67 +14,78 @@ public class ForWhomForm {
     private final By address = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     private final By metroStation = By.xpath(".//input[@placeholder='* Станция метро']");
     private final By phone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
-    private final By nextButton = By.className("Button_Button__ra12g Button_Middle__1CSJM");
+    private final By nextButton = By.xpath(".//button[contains(text(), 'Далее')]");
 
-    public ForWhomForm(WebDriver driver){
+    public ForWhomForm(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void waitForLoadHeaderForm(){
+    public void waitForLoadHeaderForm() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOfElementLocated(headerForm));
     }
-    private void clickSurname(){
+
+    private void clickSurname() {
         driver.findElement(surname).click();
     }
 
-    private void clickAddress(){
+    private void clickAddress() {
         driver.findElement(address).click();
     }
 
-    private void clickMetroStation(){
+    private void clickMetroStation() {
         driver.findElement(metroStation).click();
     }
 
-    private void clickPhone(){
+    private void clickPhone() {
         driver.findElement(metroStation).click();
     }
 
-    public void clickNextButton(){
+    public void clickNextButton() {
         driver.findElement(nextButton).click();
     }
 
-    private void clickName(){
+    private void clickName() {
         driver.findElement(name).click();
     }
-    public void fillingInTheNameField(String value){
+
+    private void fillingNameField(String value) {
         clickName();
         driver.findElement(name).clear();
         driver.findElement(name).sendKeys(value);
     }
 
-    public void fillingInTheSurnameField(String value){
+    private void fillingSurnameField(String value) {
         clickSurname();
         driver.findElement(surname).clear();
         driver.findElement(surname).sendKeys(value);
     }
 
-    public void fillingInTheAddressField(String value){
+    private void fillingAddressField(String value) {
         clickAddress();
         driver.findElement(address).clear();
         driver.findElement(address).sendKeys(value);
     }
-    public void fillingInTheMetroStationField(String value){
+
+    private void fillingMetroStationField(String value) {
         clickMetroStation();
         driver.findElement(metroStation).clear();
         driver.findElement(metroStation).sendKeys(value);
         driver.findElement(By.xpath(".//*[text()='" + value + "']")).click();
     }
 
-    public void fillingInThePhoneField(String value){
+    private void fillingPhoneField(String value) {
         clickPhone();
         driver.findElement(phone).clear();
         driver.findElement(phone).sendKeys(value);
+    }
+
+    public void fillingForWhomForm(String name, String surname, String address, String metroStation, String phone) {
+        fillingNameField(name);
+        fillingSurnameField(surname);
+        fillingAddressField(address);
+        fillingMetroStationField(metroStation);
+        fillingPhoneField(phone);
     }
 
 }
