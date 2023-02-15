@@ -1,7 +1,6 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +27,7 @@ public class AboutRentForm {
     }
 
     public String getTextOrderCompletedPanel() {
+        waitForLoadOrderCompletedPanel();
         return driver.findElement(textOrderCompletedPanel).getText();
     }
 
@@ -46,18 +46,36 @@ public class AboutRentForm {
                 .until(ExpectedConditions.visibilityOfElementLocated(orderCompletedPanel));
     }
 
-    public void fillingAboutRentForm(String date) {
+    public void fillingAboutRentFormWithBlackScooter(String date, int period, String comment) {
         fillingInDeliveryDate(date);
-
+        fillingRentalPeriod(period);
+        chooseBlackScooter();
+        fillingComment(comment);
     }
 
-    public void fillingInDeliveryDate(String date) {
+    public void fillingAboutRentFormWithGreyScooter(String date, int period, String comment) {
+        fillingInDeliveryDate(date);
+        fillingRentalPeriod(period);
+        chooseAGreyScooter();
+        fillingComment(comment);
+    }
+
+    public void clickOrderButton() {
+        driver.findElement(orderButton).click();
+    }
+
+    public void clickConsentButton() {
+        waitForLoadConfirmationPanel();
+        driver.findElement(consentButton).click();
+    }
+
+    private void fillingInDeliveryDate(String date) {
         driver.findElement(deliveryDate).click();
         driver.findElement(deliveryDate).clear();
         driver.findElement(deliveryDate).sendKeys(date, Keys.ENTER);
     }
 
-    public void fillingRentalPeriod(int period) {
+    private void fillingRentalPeriod(int period) {
         driver.findElement(rentalPeriod).click();
         driver.findElement(getPeriod(period)).click();
     }
@@ -85,26 +103,17 @@ public class AboutRentForm {
         return By.xpath(format(".//div[@class='Dropdown-menu']/div[text()='%s']", period));
     }
 
-    public void chooseBlackScooter() {
+    private void chooseBlackScooter() {
         driver.findElement(blackColor).click();
     }
 
-    public void chooseAGreyScooter() {
+    private void chooseAGreyScooter() {
         driver.findElement(greyColor).click();
     }
 
-    public void fillingComment(String comment) {
+    private void fillingComment(String comment) {
         driver.findElement(commentForCourier).click();
         driver.findElement(commentForCourier).clear();
         driver.findElement(commentForCourier).sendKeys(comment);
     }
-
-    public void clickOrderButton() {
-        driver.findElement(orderButton).click();
-    }
-
-    public void clickConsentButton() {
-        driver.findElement(consentButton).click();
-    }
-
 }

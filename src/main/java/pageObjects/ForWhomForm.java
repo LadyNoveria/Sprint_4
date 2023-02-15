@@ -15,6 +15,8 @@ public class ForWhomForm {
     private final By metroStation = By.xpath(".//input[@placeholder='* Станция метро']");
     private final By phone = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     private final By nextButton = By.xpath(".//button[contains(text(), 'Далее')]");
+    private final By logoScooter = By.xpath(".//img[@alt='Scooter']");
+
 
     public ForWhomForm(WebDriver driver) {
         this.driver = driver;
@@ -23,6 +25,22 @@ public class ForWhomForm {
     public void waitForLoadHeaderForm() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOfElementLocated(headerForm));
+    }
+
+    public void fillingForWhomForm(String name, String surname, String address, String metroStation, String phone) {
+        fillingNameField(name);
+        fillingSurnameField(surname);
+        fillingAddressField(address);
+        fillingMetroStationField(metroStation);
+        fillingPhoneField(phone);
+    }
+
+    public void clickNextButton() {
+        driver.findElement(nextButton).click();
+    }
+
+    public void clickLogo() {
+        driver.findElement(logoScooter).click();
     }
 
     private void clickSurname() {
@@ -39,10 +57,6 @@ public class ForWhomForm {
 
     private void clickPhone() {
         driver.findElement(metroStation).click();
-    }
-
-    public void clickNextButton() {
-        driver.findElement(nextButton).click();
     }
 
     private void clickName() {
@@ -79,13 +93,4 @@ public class ForWhomForm {
         driver.findElement(phone).clear();
         driver.findElement(phone).sendKeys(value);
     }
-
-    public void fillingForWhomForm(String name, String surname, String address, String metroStation, String phone) {
-        fillingNameField(name);
-        fillingSurnameField(surname);
-        fillingAddressField(address);
-        fillingMetroStationField(metroStation);
-        fillingPhoneField(phone);
-    }
-
 }
