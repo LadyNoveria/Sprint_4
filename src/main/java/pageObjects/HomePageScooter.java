@@ -3,7 +3,6 @@ package pageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePageScooter {
@@ -15,7 +14,6 @@ public class HomePageScooter {
     private final By panelHowItWorks = By.className("Home_ThirdPart__LSTEE");
     private final By headerHomePage = By.className("Home_Header__iJKdX");
     private final By logoYandex = By.xpath(".//img[@alt='Yandex']");
-    private final By searchInput = By.className("arrow__input mini-suggest__input");
 
     public HomePageScooter(WebDriver driver) {
         this.driver = driver;
@@ -45,12 +43,5 @@ public class HomePageScooter {
 
     public boolean getHeaderHomePage() {
         return driver.findElement(headerHomePage).isDisplayed();
-    }
-
-    public boolean getSearchInput() {
-        driver.navigate().refresh();
-        return driver.findElement(searchInput).isDisplayed();
-        //class="oe8327050"
-        //Сделать поиск Яндекса основным?
     }
 }

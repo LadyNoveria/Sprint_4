@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pageObjects.AboutRentForm;
 import pageObjects.ForWhomForm;
@@ -30,7 +31,7 @@ public class OrderingTests {
                          String phone,
                          String date,
                          int period,
-                         String comment){
+                         String comment) {
         this.name = name;
         this.surname = surname;
         this.address = address;
@@ -49,10 +50,10 @@ public class OrderingTests {
                 {"пр", "пр", "прпр, 6", "Нагатинская", "80000000000", "01/01/2024", 7, ""}
         };
     }
+
     @Test
     public void orderingSuccess() {
-        //WebDriver driver = new ChromeDriver();
-        WebDriver driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         HomePageScooter objHomePage = new HomePageScooter(driver);
         objHomePage.closeCookiePanel();

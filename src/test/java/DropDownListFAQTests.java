@@ -13,7 +13,7 @@ public class DropDownListFAQTests {
     private final int elementNumber;
     private final String expected;
 
-    public DropDownListFAQTests(int elementNumber, String expected){
+    public DropDownListFAQTests(int elementNumber, String expected) {
         this.elementNumber = elementNumber;
         this.expected = expected;
     }
@@ -37,7 +37,7 @@ public class DropDownListFAQTests {
     }
 
     @Test
-    public void checkAnswers(){
+    public void checkAnswers() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         DropDownListFAQ objDropDownList = new DropDownListFAQ(driver);

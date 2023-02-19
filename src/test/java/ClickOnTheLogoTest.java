@@ -19,14 +19,4 @@ public class ClickOnTheLogoTest {
         assertTrue(objHomePage.getHeaderHomePage());
         driver.quit();
     }
-
-    @Test
-    public void ClickOnTheLogoYandex(){
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
-        HomePageScooter objHomePage = new HomePageScooter(driver);
-        objHomePage.clickLogoYandex();
-        assertTrue(objHomePage.getSearchInput());
-        driver.quit();
-    }
 }

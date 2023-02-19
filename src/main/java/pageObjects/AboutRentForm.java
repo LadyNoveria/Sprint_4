@@ -95,7 +95,8 @@ public class AboutRentForm {
             case 7:
                 return getPeriod("семеро суток");
             case 1:
-            default: return getPeriod("сутки");
+            default:
+                return getPeriod("сутки");
         }
     }
 
