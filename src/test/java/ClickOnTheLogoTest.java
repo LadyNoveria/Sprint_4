@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,9 +8,9 @@ import pageObjects.HomePageScooter;
 import static org.junit.Assert.assertTrue;
 
 public class ClickOnTheLogoTest {
+    private final WebDriver driver = new ChromeDriver();
     @Test
     public void clickOnTheLogoScooter() {
-        WebDriver driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         HomePageScooter objHomePage = new HomePageScooter(driver);
         objHomePage.clickTopOrderButton();
@@ -17,6 +18,10 @@ public class ClickOnTheLogoTest {
         objForWhoForm.waitForLoadHeaderForm();
         objForWhoForm.clickLogo();
         assertTrue(objHomePage.getHeaderHomePage());
+    }
+
+    @After
+    public void closeBrowser(){
         driver.quit();
     }
 }

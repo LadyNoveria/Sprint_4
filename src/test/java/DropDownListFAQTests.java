@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -12,13 +13,15 @@ import static org.junit.Assert.assertEquals;
 public class DropDownListFAQTests {
     private final int elementNumber;
     private final String expected;
+    private final WebDriver driver;
 
     public DropDownListFAQTests(int elementNumber, String expected) {
         this.elementNumber = elementNumber;
         this.expected = expected;
+        this.driver = new ChromeDriver();
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "элемент списка: {0}, текст: {1}")
     public static Object[][] getAnswers() {
         return new Object[][]{
                 {0, "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
@@ -38,7 +41,6 @@ public class DropDownListFAQTests {
 
     @Test
     public void checkAnswers() {
-        WebDriver driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         DropDownListFAQ objDropDownList = new DropDownListFAQ(driver);
         HomePageScooter objHomePage = new HomePageScooter(driver);
@@ -46,7 +48,11 @@ public class DropDownListFAQTests {
         objDropDownList.scrollToFAQ();
         objDropDownList.waitForLoadFAQ();
         String actual = objDropDownList.getElementText(elementNumber);
-        assertEquals(actual, expected);
+        assertEquals(expected, actual);
+    }
+
+    @After
+    public void closeBrowser(){
         driver.quit();
     }
 }

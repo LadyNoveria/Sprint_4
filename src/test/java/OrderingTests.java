@@ -1,4 +1,5 @@
 import org.hamcrest.MatcherAssert;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -23,6 +24,7 @@ public class OrderingTests {
     private final String date;
     private final int period;
     private final String comment;
+    private final WebDriver driver;
 
     public OrderingTests(String name,
                          String surname,
@@ -40,12 +42,15 @@ public class OrderingTests {
         this.date = date;
         this.period = period;
         this.comment = comment;
+        this.driver = new ChromeDriver();
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: имя: {0}, фамилия: {1}, адрес: {2}, метро: {3},  " +
+            "телефон: {4}, дата: {5}, период: {6}, комметарий: {7}")
     public static Object[][] getAnswers() {
         return new Object[][]{
-                {"Мария", "Пупкина", "г. Москва, ул. Уличная, д. 1, стр. 5, кв. 3", "Беговая", "+71231238989", "10/10/2023", 1, "Вы классный!"},
+                {"Мария", "Пупкина", "г. Москва, ул. Уличная, д. 1, стр. 5, кв. 3", "Беговая", "+71231238989",
+                        "10/10/2023", 1, "Вы классный!"},
                 {"Ар", "Ку", "Апсю, вор, 5", "Полежаевская", "89160000001", "10/10/2026", 0, ""},
                 {"пр", "пр", "прпр, 6", "Нагатинская", "80000000000", "01/01/2024", 7, ""}
         };
@@ -53,7 +58,6 @@ public class OrderingTests {
 
     @Test
     public void orderingSuccess() {
-        WebDriver driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
         HomePageScooter objHomePage = new HomePageScooter(driver);
         objHomePage.closeCookiePanel();
@@ -71,6 +75,10 @@ public class OrderingTests {
         String actual = objAboutRent.getTextOrderCompletedPanel();
         MatcherAssert.assertThat(
                 actual, allOf(startsWith("Номер заказа:"), endsWith("пригодится, чтобы отслеживать статус")));
+    }
+
+    @After
+    public void closeBrowser(){
         driver.quit();
     }
 }
